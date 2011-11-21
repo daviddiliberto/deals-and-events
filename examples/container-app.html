@@ -6,14 +6,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le styles -->
+    <link rel="stylesheet" href="../jquery-ui.css">
     <link href="../bootstrap.css" rel="stylesheet">
-    <link href="jquery-ui.css" rel="stylesheet" >
     <style type="text/css">
       /* Override some defaults */
       .container > footer p {
@@ -36,7 +30,7 @@
 
       /* Page header tweaks */
       .page-header {
-		border-top: 2px solid #FFC643;
+		border-top: 2px solid #72bbe8;
         background-color: #f5f5f5;
         padding: 20px 20px 10px;
         margin: -20px -20px 20px;
@@ -77,181 +71,210 @@
     </div>
 
     <div class="container">
-
       <div class="content">
         <div class="page-header">
-          <h1>Deals and Groups In New York<small>Sign Up Now!</small> <div class="search"><input type="text" placeholder="Skydiving, Paintball, Fine Dining, Rock Climbing..." /></div>
+          <h1>Deals In New York<small>Sign Up Now!</small> <div class="search"><input class="input-large" placeholder="Skydiving, Paintball, Fine Dining, Rock Climbing..." /></div>
           </h1>
         </div>
         <div class="row">
           <div class="span10">
             <h2>Deals Close To You</h2>
-<div>
-	<form id="create-event" style="display: none">
-        <label for="event-name">Event Name</label>
-        <input id="event-name" type="text"><br/>
-        <label for="event-date">Date</label>
-        <input type="text" id="event-date"><br/>
-        <label for="event-time">Time</label>
-        <input id="event-time" />
-			<br/>
-        <label for="event-desc">Description</label>
-        <textarea type="text" id="event-desc"></textarea>
-        <button class="create">create</button>
-    </form>
-	<div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
-    </div>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-<script src=jquery-ui-timepicker-addon.js></script>
-<script type="text/javascript">
-    var DEALMEET = (function(){
-        var dealmeet = {};
-        dealmeet.app = {
-            init:function(){
-                dealmeet.app.list.show();
-                dealmeet.app.lightbox.event();
-                dealmeet.app.ui.accordionTimer();
-				dealmeet.app.ui.timepicker();
-            },
-            list:{
-                show: function(){
-                    var jsonData = 'http://api.yipit.com/v1/deals/?key=SyfdMvpxgqA8tmSm&division=new-york';
-                    var jsonData = 'ny-deals.json';
+		    <ul class="pills">
+		    <li class="active"><a href="#">New</a></li>
+		    <li><a href="#">Price</a></li>
+		    <li><a href="#">Discount</a></li>
+		    <li><a href="#">Timeleft</a></li>
+		    <li><a href="#">Distance</a></li>
+		    </ul> 
+		<div class="deals">           
+		    <div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
+		    </div>
+		</div>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+		<script src=jquery-ui-timepicker-addon.js></script>
+		<script type="text/javascript">
+		    var DEALMEET = (function(){
+		        var dealmeet = {};
+		        dealmeet.app = {
+		            init:function(){
+		                dealmeet.app.list.show();
+		                dealmeet.app.lightbox.event();
+		                dealmeet.app.ui.accordionTimer();
+						dealmeet.app.ui.timepicker();
+		            },
+		            list:{
+		                show: function(){
+		                    var jsonData = 'http://api.yipit.com/v1/deals/?key=SyfdMvpxgqA8tmSm&division=new-york';
+		                    var jsonData = '../ny-deals.json';
 
-                    $.getJSON(jsonData, function(json) {
-                        console.log(json)
-                        $(json.response.deals).each(function(){
-//                            $('#accordion').append('<li><img height="50" src="' + this.images.image_small + '" alt="">'
-//                                    + this.yipit_title + '<strong>' + this.price.formatted + '</strong></li><button>create meetup</button>');
-                            var deal_title = this.title;
-                            var yip_deal_title = this.yipit_title;
-                            var deal_price = this.price.formatted;
-                            var deal_sm_image = this.images.image_small;
-                            var deal_address = this.business.locations[0];
-                            var deal_date = this.date_added;
-                            if (deal_address){
-                                var deal_address = this.business.locations[0].address;
-                            }
-                            else {
-                                var deal_address = '';
-                            }
+		                    $.getJSON(jsonData, function(json) {
+		                        console.log(json)
+		                        $(json.response.deals).each(function(){
+		//                            $('#accordion').append('<li><img width="150" src="' + this.images.image_small + '" alt="">'
+		//                                    + this.yipit_title + '<strong>' + this.price.formatted + '</strong></li><button>create meetup</button>');
+		                            var deal_title = this.title;
+		                            var yip_deal_title = this.yipit_title;
+		                            var deal_price = this.price.formatted;
+		                            var deal_sm_image = this.images.image_small;
+		                            var deal_address = this.business.locations[0];
+		                            var deal_date = this.date_added;
+		                            if (deal_address){
+		                                var deal_address = this.business.locations[0].address;
+		                            }
+		                            else {
+		                                var deal_address = '';
+		                            }
 
-                            $('#accordion').append('<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-' +
-                                    'corner-all"><img height="50" src="'+ deal_sm_image + '" alt=""><a href="#">' + deal_title +
-                                    '</a><strong>' + deal_price + '</strong></h3><div class="ui-accordion-content ' +
-                                    'ui-helper-reset ui-widget-content ui-corner-bottom"><span class=yip_deal_title>' + yip_deal_title + '</span><div class="address">'
-                                    + deal_address + '</div><div class="event-date">'+ deal_date+'</div>' +
-                                    '<button>create meetup</button><span style=display:none class=deal_title>' + deal_title + '</span></div>');
-                        })
-                    });
-                }
-            },
-            lightbox:{
-                event:function(){
-                    $('#accordion button').live('click',function(){
-						$("html, body").animate({ scrollTop: 0 }, "slow");
-                        $('#overlay').fadeIn();
-                        $('form').fadeIn();
-                        var thisPrevVal = $(this).parent().prev().children().text();
-                        var $dateVal = $(this).prev().text();
-                        var $dealTitle = $(this).prev().prev().prev().text();
-                        var $yipDealTitle = $(this).next().text();
-                        console.log($yipDealTitle)
-                        $('form #event-name').val($dealTitle);
-                        $('form #event-desc').val($yipDealTitle);
-//                        $('form #event-date').val($dateVal);
-                    })
-                    $('#overlay').live('click',function(){
-                        $(this).hide();
-                        $('form').hide();
-                    })
-                    $('#create-event button').live('click',function(e){
-//                        alert('btn clicked')
-                        dealmeet.app.lightbox.formSubmit()
-                        e.preventDefault()
-                    })
-                    $('form').submit(function(){
-                        return false;
-                    })
-                },
-				callback: function(){
-					var confirmation = $('<h1>Thats it! You just landed a sick deal with a bunch of randoms to hang with. Enjoy :D</h1>');
-					var $peopleImages = '<div id=people-images></div>';
-                    var $eventTitle = '<em>' + $('#event-name').val() + '</em>';
-                    var $yipDealTitle = '<p>' + $('#event-desc').val() + '</p>';					
-					$('#create-event').empty().addClass('confirmation');
-					$('#create-event').append($peopleImages).append(confirmation).append($eventTitle).append($yipDealTitle);
-				},
-                formSubmit:function(){
-//                    alert('form submit')
-					var loader = '<img id=loader style=float:right src=images/5-1.gif />';
-					$('#create-event').prepend(loader);
+		                            $('#accordion').append('<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-' +
+		                                    'corner-all"><img height="100" src="'+ deal_sm_image + '" alt=""><a href="#">' + deal_title +
+		                                    '</a><strong>' + deal_price + '</strong></h3><div class="ui-accordion-content ' +
+		                                    'ui-helper-reset ui-widget-content ui-corner-bottom"><span class=yip_deal_title>' + yip_deal_title + '</span><div class="address">'
+		                                    + deal_address + '</div><div class="event-date">'+ deal_date+'</div>' +
+		                                    '<button>create meetup</button><span style=display:none class=deal_title>' + deal_title + '</span></div>');
+		                        })
+		                    });
+		                }
+		            },
+		            lightbox:{
+		                event:function(){
+		                    $('#accordion button').live('click',function(){
+								$("html, body").animate({ scrollTop: 0 }, "slow");
+		                        $('#overlay').fadeIn();
+		                        $('form').fadeIn();
+		                        var thisPrevVal = $(this).parent().prev().children().text();
+		                        var $dateVal = $(this).prev().text();
+		                        var $dealTitle = $(this).prev().prev().prev().text();
+		                        var $yipDealTitle = $(this).next().text();
+		                        console.log($yipDealTitle)
+		                        $('form #event-name').val($dealTitle);
+		                        $('form #event-desc').val($yipDealTitle);
+		//                        $('form #event-date').val($dateVal);
+		                    })
+		                    $('#overlay').live('click',function(){
+		                        $(this).hide();
+		                        $('form').hide();
+		                    })
+		                    $('#create-event button').live('click',function(e){
+		//                        alert('btn clicked')
+		                        dealmeet.app.lightbox.formSubmit()
+		                        e.preventDefault()
+		                    })
+		                    $('form').submit(function(){
+		                        return false;
+		                    })
+		                },
+						callback: function(){
+							var confirmation = $('<h1>Thats it! You just landed a sick deal with a bunch of randoms to hang with. Enjoy :D</h1>');
+							var $peopleImages = '<div id=people-images></div>';
+		                    var $eventTitle = '<em>' + $('#event-name').val() + '</em>';
+		                    var $yipDealTitle = '<p>' + $('#event-desc').val() + '</p>';					
+							$('#create-event').empty().addClass('confirmation');
+							$('#create-event').append($peopleImages).append(confirmation).append($eventTitle).append($yipDealTitle);
+						},
+		                formSubmit:function(){
+		//                    alert('form submit')
+							var loader = '<img id=loader style=float:right src=images/5-1.gif />';
+							$('#create-event').prepend(loader);
 
-                    var $eventTitle = $('#event-name').val();
-                    var $yipDealTitle = $('#event-desc').val();
-                    console.log($eventTitle)
+		                    var $eventTitle = $('#event-name').val();
+		                    var $yipDealTitle = $('#event-desc').val();
+		                    console.log($eventTitle)
 
-                    $.ajax({
-                        type: "POST",
-                        url: 'create-event.php?short_description=' + $eventTitle + '&yip_deal_title=' + $yipDealTitle
-//                        data: "?short_description=EventName&link=google.com"
-                    }).done(function(msg) {
-//                                alert("Data Saved: " + msg);
-//                                alert('done saved');	
-								DEALMEET.lightbox.callback($eventTitle, $yipDealTitle);
-                            });
-                }
-            },
-            ui:{
-                accordionTimer: function(){
+		                    $.ajax({
+		                        type: "POST",
+		                        url: 'create-event.php?short_description=' + $eventTitle + '&yip_deal_title=' + $yipDealTitle
+		//                        data: "?short_description=EventName&link=google.com"
+		                    }).done(function(msg) {
+		//                                alert("Data Saved: " + msg);
+		//                                alert('done saved');	
+										DEALMEET.lightbox.callback($eventTitle, $yipDealTitle);
+		                            });
+		                }
+		            },
+		            ui:{
+		                accordionTimer: function(){
 
-                },
-                accordion: function(){
-                    $('#accordion').accordion();
-                },
-                datepicker:function(){
-                    $( "#event-date" ).datepicker();
-                },
-				timepicker:function(){
-					$('#event-time').timepicker({})
-				}
-            }
-        }
-        dealmeet.app.init();
-        return dealmeet.app;
-    }())
-    function testFunc(){
-        DEALMEET.ui.accordion();
-        DEALMEET.ui.datepicker();
-    }
-    setTimeout(testFunc, 1000)
+		                },
+		                accordion: function(){
+		                    $('#accordion').accordion();
+		                },
+		                datepicker:function(){
+		                    $( "#event-date" ).datepicker();
+		                },
+						timepicker:function(){
+							$('#event-time').timepicker({})
+						}
+		            }
+		        }
+		        dealmeet.app.init();
+		        return dealmeet.app;
+		    }())
+		    function testFunc(){
+		        DEALMEET.ui.accordion();
+		        DEALMEET.ui.datepicker();
+		    }
+		    setTimeout(testFunc, 1000)
 
-</script>
-</div>
-          </div>
+		</script>
+		<div class="pagination">
+	    <ul>
+	    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+	    <li class="active"><a href="#">1</a></li>
+	    <li><a href="#">2</a></li>
+	    <li><a href="#">3</a></li>
+	    <li><a href="#">4</a></li>
+	    <li><a href="#">5</a></li>
+	    <li class="next"><a href="#">Next &rarr;</a></li>
+	    </ul>
+	    </div>
+		</div>
+
 			<div class="span4">
-				<div class="section-header">Location</div>
-				<div id="categories">
-			<li><a href="#about">Address or zipcode</a></li>
-			</div>
+			<div class="section-header">Location</div>
+			<h4>Address or zipcode</h4>
+			</br>
+			<input class="input-medium" type="text" placeholder=" ">
           </div>
 			<div class="span4">
 				<div class="section-header">Categories</div>
 				<div id="categories">
-			<li><a href="#about">Events</a></li>
-			<li><a href="#about">Getaways</a></li>
-			<li><a href="#about">Athletic</a></li>
-			<li><a href="#about">Nature</a></li>
-			<li><a href="#about">Free</a></li>
-			<li><a href="#about">Beauty</a></li>
+			<li><input type="checkbox"><a href="#about">Adventures</a></li>
+			<li><input type="checkbox"><a href="#about">Escapes</a></li>
+			<li><input type="checkbox"><a href="#about">Events</a></li>
+			<li><input type="checkbox"><a href="#about">Athletic</a></li>
+			<li><input type="checkbox"><a href="#about">Nature</a></li>
+			<li><input type="checkbox"><a href="#about">Free</a></li>
+			<li><input type="checkbox"><a href="#about">Beauty</a></li>
+			<li><input type="checkbox"><a href="#about">Families</a></li>
+			
 			</div>
           </div>
         </div>
       </div>
     </div> <!-- /container -->
     <footer>
-      <p>&copy; Company 2011</p>
+	    <div class="footer-container">
+	      <div class="footer-content">
+      		<p><h5>Find Local Deals</h5>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec elementum ullam corper est, ac adipiscing diam semper at. Quisque scelerisque mi non odio aliquet tempus. </p>
+			<p><h5>Create Social Groups</h5>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec elementum ullam corper est. </p>
+          </div>
+		      <div class="footer-content">
+				<li><a href="#about">Home</a></li>
+				<li><a href="#about">About</a></li>
+				<li><a href="#about">API</a></li>
+	          </div>
+			      <div class="footer-content">
+		      		<li><a href="#about">Press</a></li>
+					<li><a href="#about">Terms</a></li>
+					<li><a href="#about">Privacy</a></li>
+					<li><a href="#about">FAQ</a></li>
+					<li><a href="http://nytm.org/made/">Made in NYC</a></li>
+					<h4 small>&copy; Company 2011</h4>
+		          </div>
+       </div>
     </footer>
 
 
