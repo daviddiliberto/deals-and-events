@@ -1,17 +1,93 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-    <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DealsDealsDeals</title>
-    <link rel="stylesheet" href="jquery-ui.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="bootstrap.css">
-</head>
-<body>
-    <div id="overlay" style="display: none"></div>
-<div id="page-wrap">
-    <form id="create-event" style="display: none">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Deal Site</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../bootstrap.css" rel="stylesheet">
+    <link href="jquery-ui.css" rel="stylesheet" >
+    <style type="text/css">
+      /* Override some defaults */
+      .container > footer p {
+        text-align: center; /* center align it with the container */
+      }
+
+      /* The white background content wrapper */
+      .container > .content {
+        background-color: #EDEDED;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+        -webkit-border-radius: 0 0 6px 6px;
+           -moz-border-radius: 0 0 6px 6px;
+                border-radius: 0 0 6px 6px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                box-shadow: 0 1px 2px rgba(0,0,0,.15);
+      }
+
+      /* Page header tweaks */
+      .page-header {
+		border-top: 2px solid #FFC643;
+        background-color: #f5f5f5;
+        padding: 20px 20px 10px;
+        margin: -20px -20px 20px;
+		margin-top:80px;
+      }
+
+      /* Styles you shouldn't keep as they are for displaying this base example only */
+
+      /* Give a quick and non-cross-browser friendly divider */
+      }
+
+      .topbar .btn {
+        border: 0;
+      }
+
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  </head>
+
+  <body>
+
+        <div class="navtop">
+          <a class="brand" href="#"></a>
+          <ul class="nav">
+            <li class="active"><a href="#">Deals</a></li>
+            <li><a href="#about">Groups</a></li>
+          </ul>
+          <form action="" class="pull-right">
+            <input class="input-small" type="text" placeholder="Username">
+            <input class="input-small" type="password" placeholder="Password">
+            <button class="btn" type="submit">Sign in</button>
+          </form>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <div class="page-header">
+          <h1>Deals and Groups In New York<small>Sign Up Now!</small> <div class="search"><input type="text" placeholder="Skydiving, Paintball, Fine Dining, Rock Climbing..." /></div>
+          </h1>
+        </div>
+        <div class="row">
+          <div class="span10">
+            <h2>Deals Close To You</h2>
+<div>
+	<form id="create-event" style="display: none">
         <label for="event-name">Event Name</label>
         <input id="event-name" type="text"><br/>
         <label for="event-date">Date</label>
@@ -23,9 +99,8 @@
         <textarea type="text" id="event-desc"></textarea>
         <button class="create">create</button>
     </form>
-    <div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
+	<div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
     </div>
-</div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 <script src=jquery-ui-timepicker-addon.js></script>
@@ -153,7 +228,32 @@
     setTimeout(testFunc, 1000)
 
 </script>
+</div>
+          </div>
+			<div class="span4">
+				<div class="section-header">Location</div>
+				<div id="categories">
+			<li><a href="#about">Address or zipcode</a></li>
+			</div>
+          </div>
+			<div class="span4">
+				<div class="section-header">Categories</div>
+				<div id="categories">
+			<li><a href="#about">Events</a></li>
+			<li><a href="#about">Getaways</a></li>
+			<li><a href="#about">Athletic</a></li>
+			<li><a href="#about">Nature</a></li>
+			<li><a href="#about">Free</a></li>
+			<li><a href="#about">Beauty</a></li>
+			</div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /container -->
+    <footer>
+      <p>&copy; Company 2011</p>
+    </footer>
 
-<div class="footer"><center>©2011 dealingwithus</center></div>
-</body>
+
+  </body>
 </html>
